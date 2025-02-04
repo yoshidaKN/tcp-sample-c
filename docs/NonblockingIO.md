@@ -97,13 +97,17 @@ int main(int argc, char const *argv[])
 
     /* InterruptSignalHandler()をハンドラ関数として設定 */
     handler.sa_handler = InterruptSignalHandler;
-    /* 全シグナルをマスクするマスを作成する */
+    
+    /* int sigfillset(sigset_t *set) 全フラグをセットする */
+    /* 全シグナルをマスクするマスクを作成する 
+        → 全てのシグナルをブロックする　*/
     if (sigfillset(&handler.sa_mask) < 0)
     {
         DieWithError("sigfillset() failed");
     }
 
-    /* 割り込みシグナルに対する処理を設定 */
+    /* 割り込みシグナルに対する処理を設定 
+        →　このシグナルだけを受け入れる */
     if (sigaction(SIGINT, &handler, 0) < 0)
     {
         DieWithError("sigaction() failed");
@@ -117,3 +121,4 @@ int main(int argc, char const *argv[])
     return 0;
 }
 ```
+

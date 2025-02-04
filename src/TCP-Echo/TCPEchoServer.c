@@ -66,13 +66,19 @@ int main(int argc, char *argv[])
     /* エコーサーバのポートを指定 */
     echoServPort = atoi(argv[1]);
 
-    /* ソケットの作成 */
+    /* ソケットの作成 
+        * PF_INET: インターネットアドレスファミリ
+        * SOCK_STREAM: ストリームソケット
+        * IPPROTO_TCP: TCPトランスポートプロトコル
+    */
     if ((servSock = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP)) < 0)
     {
         DieWithError("socket() failed");
     }
 
-    /* サーバのアドレス構造体を作成 */
+    /* サーバのアドレス構造体を作成 
+        htonl: ホストバイト順の IPv4 アドレスをネットワークバイト順の IPv4 アドレスに変換
+        htons: ホストのバイト順の IP ポート番号をネットワーク バイト順の IP ポート番号に変換  */
     memset(&echoServAddr, 0, sizeof(echoServAddr));   /* 構造体をゼロで初期化 */
     echoServAddr.sin_family = AF_INET;                /* インターネットアドレスファミリ */
     echoServAddr.sin_addr.s_addr = htonl(INADDR_ANY); /* 任意のIPアドレス */
