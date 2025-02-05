@@ -7,5 +7,5 @@
 
 void DieWithError(char *errorMessage);
 void HandleTCPClient(int clntSocket);
-int CreateTCPClientSocket(unsigned short port);
+int CreateTCPServerSocket(unsigned short port);
 int AcceptTCPConnection(int servSock);

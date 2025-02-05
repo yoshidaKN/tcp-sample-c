@@ -53,3 +53,6 @@ dkms.conf
 
 # binary folder
 bin/
+
+# USER EDITED
+.vscode/
